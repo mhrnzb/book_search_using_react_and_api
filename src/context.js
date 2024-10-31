@@ -17,6 +17,36 @@ const AppProvider = ({children}) =>{
            
             const {docs} = data;
             console.log(docs);
+
+            if (docs){
+                const newBooks = docs.slice(0,20).map((bookSingle) =>{
+                    const{key , author_name , cover_i , edition_count , first_publish_year , title } = bookSingle;
+
+                    return{
+                        id: key,
+                        author: author_name,
+                        cover_id: cover_i,
+                        edition_count: edition_count,
+                        first_publish_year: first_publish_year,
+                        title: title
+                    }
+                });
+
+                setBooks(newBooks);
+
+                if (newBooks.length > 1){
+                    setResultTitle("your search result");
+
+                }
+                else {
+                    setResultTitle("No search result found...");
+                }
+
+            }else{
+                setBooks([]);
+                setResultTitle("No search result found...");
+            }
+            setLoading(false);
             
         }
         catch(error){
